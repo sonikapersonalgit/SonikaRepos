@@ -1,12 +1,12 @@
-using MyPulsario.Common;
-using MyPulsario.Common.Enums;
-using MyPulsario.Common.Helper;
-using MyPulsario.Common.QO;
-using MyPulsario.Core.Common;
-using MyPulsario.Core.Common.Enums;
-using MyPulsario.Core.Common.FaultDetail;
-using MyPulsario.Core.DLL;
-using MyPulsario.Core.IBLL;
+using MySK.Common;
+using MySK.Common.Enums;
+using MySK.Common.Helper;
+using MySK.Common.QO;
+using MySK.Core.Common;
+using MySK.Core.Common.Enums;
+using MySK.Core.Common.FaultDetail;
+using MySK.Core.DLL;
+using MySK.Core.IBLL;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,7 +19,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Web.Hosting;
 
-namespace MyPulsario.Core.BLL
+namespace MySK.Core.BLL
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
     [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
@@ -174,11 +174,11 @@ namespace MyPulsario.Core.BLL
 
             string patientPath =
                 string.Format(@"{0}\{1}\" + @"\{2}" + @"_{3}_{4}\", GetDLSetting()
-                        .GetDefaultSetting(new SettingQO() { SettingID = MyPulsario.Common.Enums.SettingItem.PatientDocumentRoot }),
+                        .GetDefaultSetting(new SettingQO() { SettingID = MySK.Common.Enums.SettingItem.PatientDocumentRoot }),
                         patient.OrganizationID, documentInfo.PatientID, patient.LastName, patient.FirstName);
             string folderPath = HostingEnvironment.MapPath("~/Uploads/");
             patientPath =
-                string.Format(@"{0}\{1}\" + @"{2}" + @"_{3}_{4}\", string.Format(@"{0}{1}\{2}", folderPath, "MyPulsario", "PatientDocuments"),
+                string.Format(@"{0}\{1}\" + @"{2}" + @"_{3}_{4}\", string.Format(@"{0}{1}\{2}", folderPath, "MySK", "PatientDocuments"),
                         patient.OrganizationID, documentInfo.PatientID, patient.LastName, patient.FirstName);
 
             if (documentInfo.DocumentFile != null)
@@ -232,9 +232,9 @@ namespace MyPulsario.Core.BLL
         {
             GetDLPatient().DeletePatientMedicalData(medDataQO);
         }
-        public void SavePatientPulsarioKit(bool HaveKit, string KitNumber, string KitScaleNumber, Guid patientID)
+        public void SavePatientSKKit(bool HaveKit, string KitNumber, string KitScaleNumber, Guid patientID)
         {
-            GetDLPatient().SavePatientPulsarioKit(HaveKit, KitNumber, KitScaleNumber, patientID);
+            GetDLPatient().SavePatientSKKit(HaveKit, KitNumber, KitScaleNumber, patientID);
         }
         public CCMReports GetCCMPreviousReports(CCMPreviousReports ccprev, int iscomplete, string programType)
         {
@@ -4019,19 +4019,19 @@ namespace MyPulsario.Core.BLL
                     {
                         switch (goal.GoalTypeID)
                         {
-                            case MyPulsario.Common.Enums.PatientClassGoalType.HeartRate:
+                            case MySK.Common.Enums.PatientClassGoalType.HeartRate:
                                 pathome.PulseGoal = BuildGoalString(goal.MinValue, goal.MaxValue);
                                 break;
-                            case MyPulsario.Common.Enums.PatientClassGoalType.SystolicBP:
+                            case MySK.Common.Enums.PatientClassGoalType.SystolicBP:
                                 pathome.SystolicGoal = BuildGoalString(goal.MinValue, goal.MaxValue);
                                 break;
-                            case MyPulsario.Common.Enums.PatientClassGoalType.DiastolicBP:
+                            case MySK.Common.Enums.PatientClassGoalType.DiastolicBP:
                                 pathome.DiastolicGoal = BuildGoalString(goal.MinValue, goal.MaxValue);
                                 break;
-                            case MyPulsario.Common.Enums.PatientClassGoalType.O2Sat:
+                            case MySK.Common.Enums.PatientClassGoalType.O2Sat:
                                 pathome.SatsGoal = BuildGoalString(goal.MinValue, goal.MaxValue);
                                 break;
-                            case MyPulsario.Common.Enums.PatientClassGoalType.Weight:
+                            case MySK.Common.Enums.PatientClassGoalType.Weight:
                                 pathome.WeightGoal = BuildGoalString(goal.MinValue, goal.MaxValue);
                                 break;
 
@@ -4177,7 +4177,7 @@ namespace MyPulsario.Core.BLL
         public PatientInfoSummary GetPatientInfoSummary(PatientQO patientQO)
         {
             //initialize and load our objects
-            PatientInfoSummary summary = new MyPulsario.Common.PatientInfoSummary();
+            PatientInfoSummary summary = new MySK.Common.PatientInfoSummary();
             PatientDetail patient = this.GetPatientDemographics(patientQO);
 
             if (patient != null && patient.HomeCareProviderID != Guid.Empty)
@@ -4224,7 +4224,7 @@ namespace MyPulsario.Core.BLL
 
             //Get Patient's Medical Data
             ObservableCollection<PatientMedicalData> patientMedicalDataList = this.GetPatientMedicalData(new PatientMedicalDataQO() { PatientID = details.ID });
-            PatientMedicalData patientMedicalData = new MyPulsario.Common.PatientMedicalData();
+            PatientMedicalData patientMedicalData = new MySK.Common.PatientMedicalData();
 
             if (patientMedicalDataList != null && patientMedicalDataList.Count > 0)
             {

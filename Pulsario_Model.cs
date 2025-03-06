@@ -1,4 +1,4 @@
-using MyPulsario.Common.Enums;
+using MySK.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 
 
 
-namespace MyPulsario.Common
+namespace MySK.Common
 {
     [DataContract]
     public class PatientListModel : CommonBase<Guid>
@@ -17,7 +17,7 @@ namespace MyPulsario.Common
         public string username = string.Empty;
         private DateTime dob = DateTime.MinValue;
         private bool vitaladded = false;
-        private bool havepulsariokit = false;
+        private bool haveSKkit = false;
         private string programtype = string.Empty;
         private string nurse = string.Empty;
         private string kitNumber = string.Empty;
@@ -51,7 +51,7 @@ namespace MyPulsario.Common
         [DataMember]
         public string CCCM { get; set; }
         [DataMember]
-        public string PulsarioKits { get; set; }
+        public string SKKits { get; set; }
 
         [DataMember]
         public string ProgramType
@@ -153,15 +153,15 @@ namespace MyPulsario.Common
         }
 
         [DataMember]
-        public bool HavePulsarioKit
+        public bool HaveSKKit
         {
-            get { return havepulsariokit; }
+            get { return haveSKkit; }
             set
             {
-                if (value != this.havepulsariokit)
+                if (value != this.haveSKkit)
                 {
-                    this.havepulsariokit = value;
-                    NotifyPropertyChanged("HavePulsarioKit");
+                    this.haveSKkit = value;
+                    NotifyPropertyChanged("HaveSKKit");
                 }
             }
 
